@@ -12,6 +12,7 @@ namespace Homework08.Controllers
         // GET: Posts
         public ActionResult Index()
         {
+            //list to display something
             List<PostViewModel> list = new List<PostViewModel>();
             PostViewModel post = new PostViewModel()
             {
@@ -28,19 +29,8 @@ namespace Homework08.Controllers
             return View("Index", list);
         }
 
-        public ActionResult Details()
+        public ActionResult Details(PostViewModel post)
         {
-            PostViewModel post = new PostViewModel()
-            {
-                Id = 1,
-                UserId = 1,
-                Priority = 1,
-                IsSticky = true,
-                Message = " Bla bla ",
-                Type = PostType.Photo,
-                TimeOfPosting = DateTime.Now
-            };
-
             return View("Details", post);
         }
 
@@ -55,14 +45,12 @@ namespace Homework08.Controllers
         {
             if (post.Message == null || post.Equals(""))
             {
-                return View();
+                return HttpNotFound();
             }
             else
             {
-                return View("Datails", post);
+                return RedirectToAction("Details", post);
             }
-        }
-
-        
+        }        
     }
 }
