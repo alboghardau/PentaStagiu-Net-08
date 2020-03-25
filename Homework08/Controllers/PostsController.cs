@@ -20,11 +20,21 @@ namespace Homework08.Controllers
                 UserId = 1,
                 Priority = 1,
                 IsSticky = true,
-                Message = " Bla bla ",
+                Message = "This is the first post",
                 Type = PostType.Photo,
                 TimeOfPosting = DateTime.Now
             };
-            list.Add(post);
+            PostViewModel post2 = new PostViewModel()
+            {
+                Id = 1,
+                UserId = 1,
+                Priority = 1,
+                IsSticky = true,
+                Message = "This is another post",
+                Type = PostType.Photo,
+                TimeOfPosting = DateTime.Now
+            };
+            list.Add(post2);
 
             return View("Index", list);
         }
