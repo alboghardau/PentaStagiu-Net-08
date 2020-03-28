@@ -240,6 +240,8 @@
     <Content Include="Views\Posts\Index.cshtml" />
     <Content Include="Views\Posts\Details.cshtml" />
     <Content Include="Views\Posts\Create.cshtml" />
+    <Content Include="Views\Shared\_InstructionsPartial.cshtml" />
+    <Content Include="Views\Posts\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

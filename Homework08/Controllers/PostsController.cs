@@ -24,6 +24,7 @@ namespace Homework08.Controllers
                 Type = PostType.Photo,
                 TimeOfPosting = DateTime.Now
             };
+            list.Add(post);
             PostViewModel post2 = new PostViewModel()
             {
                 Id = 1,
@@ -61,6 +62,18 @@ namespace Homework08.Controllers
             {
                 return RedirectToAction("Details", post);
             }
-        }        
+        }    
+        
+        [HttpGet]
+        public ActionResult Edit()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Edit(PostViewModel post)
+        {
+            return RedirectToAction("Details", post);
+        }
     }
 }
