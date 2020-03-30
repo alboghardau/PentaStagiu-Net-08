@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace PostLibrary
 {
-    public enum PostType { Text, Photo }
     public class PostModel
     {
         public int Id { get; set; }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PostLibrary;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -6,8 +7,6 @@ using System.Web;
 
 namespace Homework08.Models
 {
-    public enum PostType { Text, Photo}
-
     public class PostViewModel
     {
         [Required]

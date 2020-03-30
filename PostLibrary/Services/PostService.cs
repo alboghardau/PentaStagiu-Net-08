@@ -13,13 +13,14 @@ namespace PostLibrary.Services
 
         public PostService()
         {
-            if(PostsList == null)
+            if(this.PostsList == null)
             {
                 this.PostsList = new List<PostModel>();
+                GenerateList();
             }
-            GenerateList();
         }
 
+        //completed
         public PostModel Add(PostModel model)
         {
             this.PostsList.Add(model);
@@ -34,7 +35,9 @@ namespace PostLibrary.Services
 
         public PostModel Edit(PostModel model)
         {
-            throw new NotImplementedException();
+            PostModel newModel = model;
+            this.PostsList.Remove(model);
+            return newModel;
         }
 
         //completed
@@ -67,20 +70,20 @@ namespace PostLibrary.Services
             {
                 Id = 1,
                 UserId = 1,
-                Priority = 1,
+                Priority = 2,
                 IsSticky = true,
-                Message = "This is the first post",
+                Message = "This is the second post",
                 Type = PostType.Photo,
                 TimeOfPosting = DateTime.Now
             };
             PostsList.Add(post2);
             PostModel post3 = new PostModel()
             {
-                Id = 1,
-                UserId = 1,
+                Id = 3,
+                UserId = 2,
                 Priority = 1,
                 IsSticky = true,
-                Message = "This is the first post",
+                Message = "This is the third post",
                 Type = PostType.Photo,
                 TimeOfPosting = DateTime.Now
             };
