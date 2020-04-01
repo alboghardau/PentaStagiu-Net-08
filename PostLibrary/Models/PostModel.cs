@@ -1,27 +1,20 @@
-﻿using PostLibrary;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Web;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Homework08.Models
+
+namespace PostLibrary
 {
-    public class PostViewModel
+    public class PostModel
     {
-        [Required]
         public int Id { get; set; }
-        [Required]
         public int UserId { get; set; }
-        [Required]
         public DateTime TimeOfPosting { get; set; }
-        [Required]
         public string Message { get; set; }
-        [Required]
         public PostType Type { get; set; }
-        [Required]
         public bool IsSticky { get; set; }
-        [Range(1,5)]
         public int Priority { get; set; }
     }
 }
