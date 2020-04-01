@@ -13,17 +13,40 @@ namespace PostLibrary.Services
 
         public PostService()
         {
-            if(this.PostsList == null)
+            try
             {
-                this.PostsList = new List<PostModel>();
-                GenerateList();
+                this.PostsList = XMLWriter.ReadFromXmlFile<List<PostModel>>("posts.xml");
+                if (this.PostsList == null || this.PostsList.Count() == 0)
+                {
+                    this.PostsList = GenerateList();
+                }
             }
+            catch (Exception e)
+            {
+                this.PostsList = GenerateList();
+                Console.WriteLine("###FAILED TO LOAD XML DATA!###");
+                Console.WriteLine(e.Message.ToString());
+            }
+        }
+
+        //SAVE XML DATA IN DESTRUCTOR
+        ~PostService()
+        {
+            SaveData();
+        }
+
+
+        private void SaveData()
+        {
+            XMLWriter.WriteToXmlFile("posts.xml", this.PostsList);
         }
 
         //completed
         public PostModel Add(PostModel model)
         {
+            model.Id = MaxId() + 1; 
             this.PostsList.Add(model);
+            SaveData();
             return model;
         }
 
@@ -31,12 +54,17 @@ namespace PostLibrary.Services
         public void Delete(int id)
         {
             PostsList.Remove(PostsList.Where(x => x.Id == id).FirstOrDefault());
+            SaveData();
         }
 
-        public PostModel Edit(PostModel model)
+        public PostModel Edit(PostModel newModel)
         {
-            PostModel newModel = model;
-            this.PostsList.Remove(model);
+            int index = this.PostsList.FindIndex(x => x.Id == newModel.Id);
+            if (index >= 0)
+            {
+                this.PostsList[index] = newModel;
+            }
+            SaveData();
             return newModel;
         }
 
@@ -53,8 +81,9 @@ namespace PostLibrary.Services
         }
 
         //completed
-        private void GenerateList()
+        private List<PostModel> GenerateList()
         {
+            List<PostModel> posts = new List<PostModel>();
             PostModel post = new PostModel()
             {
                 Id = 1,
@@ -65,10 +94,10 @@ namespace PostLibrary.Services
                 Type = PostType.Photo,
                 TimeOfPosting = DateTime.Now
             };
-            PostsList.Add(post);
+            posts.Add(post);
             PostModel post2 = new PostModel()
             {
-                Id = 1,
+                Id = 2,
                 UserId = 1,
                 Priority = 2,
                 IsSticky = true,
@@ -76,7 +105,7 @@ namespace PostLibrary.Services
                 Type = PostType.Photo,
                 TimeOfPosting = DateTime.Now
             };
-            PostsList.Add(post2);
+            posts.Add(post2);
             PostModel post3 = new PostModel()
             {
                 Id = 3,
@@ -87,7 +116,13 @@ namespace PostLibrary.Services
                 Type = PostType.Photo,
                 TimeOfPosting = DateTime.Now
             };
-            PostsList.Add(post3);
+            posts.Add(post3);
+            return posts;
+        }
+
+        private int MaxId()
+        {
+            return this.PostsList.Max(t => t.Id);
         }
     }
 }

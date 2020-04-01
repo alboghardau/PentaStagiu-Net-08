@@ -29,7 +29,6 @@ namespace Homework08.Helper
         {
             return new PostModel
             {
-                Id = post.Id,
                 IsSticky = post.IsSticky,
                 Message = post.Message,
                 Priority = post.Priority,

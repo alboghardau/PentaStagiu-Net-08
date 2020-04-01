@@ -34,6 +34,7 @@ namespace Homework08.Controllers
         }
 
         //completed
+        [HttpGet]
         public ActionResult Details(int id)
         {
             return View("Details", ModelConvertor.ModelToViewModel(_postService.Get(id)));
@@ -46,6 +47,7 @@ namespace Homework08.Controllers
             return View();
         }
 
+        //completed
         [HttpPost]
         public ActionResult Create(PostViewModel post)
         {
@@ -56,7 +58,7 @@ namespace Homework08.Controllers
             else
             {
                 _postService.Add(ModelConvertor.ViewModelToModel(post));
-                return RedirectToAction("Details", post);
+                return RedirectToAction("Index");
             }
         }
 
@@ -67,14 +69,18 @@ namespace Homework08.Controllers
             return View("Edit", ModelConvertor.ModelToViewModel(_postService.Get(id)));
         }
 
-        [HttpPut] 
+        [HttpPost]
         public ActionResult Edit(PostViewModel post)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                return View();
+                _postService.Edit(ModelConvertor.ViewModelToModel(post));
+                return RedirectToAction("Details", post);
             }
-            return RedirectToAction("Index");
+            else
+            {
+                return RedirectToAction("Index");
+            }
         }
 
         [HttpGet]
